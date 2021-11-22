@@ -1,11 +1,11 @@
-# Open Endpoint Defense & Response
+# FreeEndpoint Defense & Response
 
 * Tested on Windows 10, Server 2012R2 to 2019
 * Protects endpoints from non-escalated file-based PE Malware (EXE/DLL) & Office-macro malware
 * Detects Living-Off-The-Land offensive techniques without hard-coded rules
 * Responds by automated or backend triggered malicious process termination 
 
-It leverages the following components & reports to [an OpenEDR server (click to find out more)](https://github.com/jymcheong/OpenEDR).
+It leverages the following components & reports to [an FreeEDR server (click to find out more)](https://github.com/jymcheong/FreeEDR).
 
 ## Sysmon
 Sysinternal's license: https://docs.microsoft.com/en-us/sysinternals/license-terms
@@ -13,7 +13,7 @@ Sysinternal's license: https://docs.microsoft.com/en-us/sysinternals/license-ter
 For non-Internet facing endpoints, please download Sysmon, modifiy `install.ps1` accordingly & host within your internal web-server.
 
 ## Nxlog-CE 
-This is an archived version of NXLog-CE tested with OpenEDR client agents. For commercial deployments, please contact NXLOG for commercial license. 
+This is an archived version of NXLog-CE tested with FreeEDR client agents. For commercial deployments, please contact NXLOG for commercial license. 
 
 ## Building your own installer
 - git clone this
@@ -22,4 +22,4 @@ This is an archived version of NXLog-CE tested with OpenEDR client agents. For c
 - run batch file: updateInstaller.bat
 
 ## Change-Log
-See https://github.com/jymcheong/OpenEDRclient/commits/master
+See https://github.com/jymcheong/FreeEDR-agents/commits/main
