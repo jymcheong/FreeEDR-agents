@@ -1,1 +1,1 @@
-# FreeEDRagents
+# FreeEDR-agents
