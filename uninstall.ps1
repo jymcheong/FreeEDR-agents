@@ -5,7 +5,7 @@ If (Get-WmiObject -Class Win32_Service -Filter "Name='Sysmon'") {
 }
 If (Get-WmiObject -Class Win32_Service -Filter "Name='Sysmon64'") {
     Write-Host "Uninstalling Sysmon64..."
-    Start-Process -FilePath "Sysmon64.exe" -Wait -ArgumentList "-u"
+    Start-Process -FilePath "Sysmon64.exe" -Wait -ArgumentList "-u force"
 }
 
 Write-Host "Searching for existing Nxlog-CE..."
