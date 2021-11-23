@@ -1,7 +1,7 @@
 Write-Host "Searching for existing Sysmon...."
 If (Get-WmiObject -Class Win32_Service -Filter "Name='Sysmon'") {
     Write-Host "Uninstalling Sysmon..."
-    Start-Process -FilePath "Sysmon.exe" -Wait -ArgumentList "-u"
+    Start-Process -FilePath "Sysmon.exe" -Wait -ArgumentList "-u force"
 }
 If (Get-WmiObject -Class Win32_Service -Filter "Name='Sysmon64'") {
     Write-Host "Uninstalling Sysmon64..."
@@ -15,7 +15,7 @@ if($app) {
     $app.uninstall() 
 }
 
-Write-Host "Searching for existing OpenEDR (aka DataFusion)..."
+Write-Host "Searching for existing DataFusion service..."
 $app = Get-WmiObject Win32_Product -filter "Name='DataFusion'"
 if($app) { 
     Write-Host "Uninstalling DataFusion..."
