@@ -37,7 +37,7 @@ $OPENEDR_SHA256_HASH='9F48D6C1C9155AE549947337DB32E67AEBA0A1386AF613F9C7131B28D8
 $NET46_SHA256_HASH='B21D33135E67E3486B154B11F7961D8E1CFD7A603267FB60FEBB4A6FEAB5CF87'
 
 # clear any previously downloaded installer.zip
-if(Test-Path "C:\$INSTALLERZIP") { Remove-Item -LiteralPath "C:\$INSTALLERZIP" -Force -Recurse | Out-Null }
+if(Test-Path "$PSScriptRoot\$INSTALLERZIP") { Remove-Item -LiteralPath "$PSScriptRoot\$INSTALLERZIP" -Force -Recurse | Out-Null }
 
 # Create a location to download the files to
 if(Test-Path $DOWNLOADDIR) { Remove-Item -LiteralPath $DOWNLOADDIR -Force -Recurse | Out-Null }
