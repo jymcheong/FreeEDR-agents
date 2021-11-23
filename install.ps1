@@ -210,8 +210,6 @@ $balmsg.BalloonTipTitle = "Attention $Env:USERNAME"
 $balmsg.Visible = $true
 $balmsg.ShowBalloonTip(20000)
 
-shutdown /r /t 300
-
 # Windows 10 Attack Surface Reduction Rules
 if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue)
 {   
@@ -259,6 +257,8 @@ reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ /v
 auditpol.exe /set /subcategory:"Process Creation" /success:enable /failure:enable
 
 auditpol.exe /set /subcategory:"Process Termination" /success:enable /failure:enable
+
+shutdown /r /t 300
 
 Write-Output "FreeEDR installation completed, you may close this session!"
 
