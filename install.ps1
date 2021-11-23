@@ -20,14 +20,14 @@ if ($PSVersionTable.PSVersion.Major -lt 5)
     exit;
 }
 
-$TARGETDIR="c:\windows\openedr"
-$DOWNLOADDIR="$env:TEMP\openedr"
+$TARGETDIR="c:\windows\freeEdr"
+$DOWNLOADDIR="$env:TEMP\freeEdr"
 $INSTALLERZIP='installer.zip'
-$OPENEDRFILENAME='openedr.msi'
+$EDRSETUPFILENAME='setup.msi'
 $NXLOGFILENAME="nxlog-ce-2.10.2150.msi"
 $NET46FILENAME="NDP46-KB3045557-x86-x64-AllOS-ENU.exe"
 
-$openEdrInstallerURL='https://github.com/jymcheong/openedrClient/blob/master/installer.zip?raw=true'
+$openEdrInstallerURL='https://github.com/jymcheong/FreeEDR-agents/blob/main/installer.zip?raw=true'
 $net46InstallerURL='https://download.microsoft.com/download/C/3/A/C3A5200B-D33C-47E9-9D70-2F7C65DAAD94/NDP46-KB3045557-x86-x64-AllOS-ENU.exe'
 
 # System.Net.WebClient will fail to download if remote site has TLS1.2
@@ -50,7 +50,7 @@ $net46 = $false
 Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -recurse |
 Get-ItemProperty -name Version,Release -EA 0 | ForEach-Object { if($_.Release -ge 393295) { $net46 = $true}}
 if($net46 -eq $false) {
-    $wc.DownloadFile("https://raw.githubusercontent.com/jymcheong/openedrClient/master/install.ps1", "$DOWNLOADDIR\install.ps1")
+    $wc.DownloadFile("https://raw.githubusercontent.com/jymcheong/FreeEDR-agents/main/install.ps1", "$DOWNLOADDIR\install.ps1")
     Set-Location -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce'
     Set-ItemProperty -Path . -Name installOpenEDR -Value "C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -noexit  -executionPolicy Unrestricted -File $DOWNLOADDIR\install.ps1"
     Write-Output "Downloading .NET 4.6 Standalone Installer..."
@@ -65,26 +65,26 @@ if($net46 -eq $false) {
 
 if(!(Test-Path "$PSScriptRoot\installer.zip")){
    # Download the installers...
-   Write-Host 'Downloading OpenEDR...'
+   Write-Host 'Downloading FreeEDR...'
    $wc.DownloadFile($openEdrInstallerURL, "$PSScriptRoot\$INSTALLERZIP")
 }
 
 $FileHash = Get-FileHash -Path "$PSScriptRoot\$INSTALLERZIP"
 if($FileHash.Hash -ne $OPENEDR_SHA256_HASH) { Write-Host 'Checksum failed!'; exit } 
 
-Write-Host "Extracting OpenEDR installers..."
+Write-Host "Extracting FreeEDR installers..."
 [System.Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem") | Out-Null
 [System.IO.Compression.ZipFile]::ExtractToDirectory("$PSScriptRoot\$INSTALLERZIP",$DOWNLOADDIR)
 
 # uninstall if existing target directory exists
 if(Test-Path $TARGETDIR) {
-    Invoke-Expression $wc.DownloadString('https://raw.githubusercontent.com/jymcheong/openedrClient/master/uninstall.ps1')
+    Invoke-Expression $wc.DownloadString('https://raw.githubusercontent.com/jymcheong/FreeEDR-agents/main/uninstall.ps1')
 }
 
 # start the installations
 Set-Location $DOWNLOADDIR
 Write-Output "Installing OpenEDR..."
-Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c msiexec /i $OPENEDRFILENAME TARGETDIR=$TARGETDIR /qb /L*V OPENEDRinstall.log"
+Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c msiexec /i $EDRSETUPFILENAME TARGETDIR=$TARGETDIR /qb /L*V OPENEDRinstall.log"
 
 Write-Output "Installing Sysmon..."
 Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c sysmon.exe -accepteula -i $DOWNLOADDIR\smconfig.xml"
@@ -205,7 +205,7 @@ $global:balmsg = New-Object System.Windows.Forms.NotifyIcon
 $path = (Get-Process -id $pid).Path
 $balmsg.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($path)
 $balmsg.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Warning
-$balmsg.BalloonTipText = 'OpenEDR installation completed! System will reboot in 5 mins!'
+$balmsg.BalloonTipText = 'FreeEDR installation completed! System will reboot in 5 mins!'
 $balmsg.BalloonTipTitle = "Attention $Env:USERNAME"
 $balmsg.Visible = $true
 $balmsg.ShowBalloonTip(20000)
