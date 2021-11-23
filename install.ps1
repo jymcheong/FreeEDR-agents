@@ -83,8 +83,8 @@ if(Test-Path $TARGETDIR) {
 
 # start the installations
 Set-Location $DOWNLOADDIR
-Write-Output "Installing OpenEDR..."
-Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c msiexec /i $EDRSETUPFILENAME TARGETDIR=$TARGETDIR /qb /L*V OPENEDRinstall.log"
+Write-Output "Installing FreeEDR..."
+Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c msiexec /i $EDRSETUPFILENAME TARGETDIR=$TARGETDIR /qb /L*V FreeEDRinstall.log"
 
 Write-Output "Installing Sysmon..."
 Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c sysmon.exe -accepteula -i $DOWNLOADDIR\smconfig.xml"
@@ -260,7 +260,7 @@ auditpol.exe /set /subcategory:"Process Creation" /success:enable /failure:enabl
 
 auditpol.exe /set /subcategory:"Process Termination" /success:enable /failure:enable
 
-
+Write-Output "FreeEDR installation completed, you may close this session!"
 
 
 
