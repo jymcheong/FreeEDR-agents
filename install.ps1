@@ -20,8 +20,8 @@ if ($PSVersionTable.PSVersion.Major -lt 5)
     exit;
 }
 
-$TARGETDIR="c:\windows\freeEdr"
-$DOWNLOADDIR="$env:TEMP\freeEdr"
+$TARGETDIR="c:\windows\freeEDR"
+$DOWNLOADDIR="$env:TEMP\freeEDR"
 $INSTALLERZIP='installer.zip'
 $EDRSETUPFILENAME='setup.msi'
 $NXLOGFILENAME="nxlog-ce-2.10.2150.msi"
