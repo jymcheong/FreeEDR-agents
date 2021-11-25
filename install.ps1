@@ -200,16 +200,6 @@ else{ # otherwise network address events will fill up the directory because ther
     Write-Output "Stopped DataFusion service!"
 }
 
-# Notify user
-Add-Type -AssemblyName System.Windows.Forms
-$global:balmsg = New-Object System.Windows.Forms.NotifyIcon
-$path = (Get-Process -id $pid).Path
-$balmsg.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($path)
-$balmsg.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Warning
-$balmsg.BalloonTipText = 'FreeEDR installation completed! System will reboot in 5 mins!'
-$balmsg.BalloonTipTitle = "Attention $Env:USERNAME"
-$balmsg.Visible = $true
-$balmsg.ShowBalloonTip(20000)
 
 # Windows 10 Attack Surface Reduction Rules
 if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue)
@@ -258,6 +248,17 @@ reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ /v
 auditpol.exe /set /subcategory:"Process Creation" /success:enable /failure:enable
 
 auditpol.exe /set /subcategory:"Process Termination" /success:enable /failure:enable
+
+# Notify user
+Add-Type -AssemblyName System.Windows.Forms
+$global:balmsg = New-Object System.Windows.Forms.NotifyIcon
+$path = (Get-Process -id $pid).Path
+$balmsg.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($path)
+$balmsg.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Warning
+$balmsg.BalloonTipText = 'FreeEDR installation completed! System will reboot in 5 mins!'
+$balmsg.BalloonTipTitle = "Attention $Env:USERNAME"
+$balmsg.Visible = $true
+$balmsg.ShowBalloonTip(20000)
 
 shutdown /r /t 300
 
