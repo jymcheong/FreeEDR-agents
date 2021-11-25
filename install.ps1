@@ -85,6 +85,7 @@ if(Test-Path $TARGETDIR) {
 # start the installations
 Set-Location $DOWNLOADDIR
 Write-Output "Installing FreeEDR..."
+Copy-Item -Path whitelist.ps1 -Destination C:\Windows
 Start-Process -FilePath "$env:comspec" -Verb runAs -Wait -ArgumentList "/c msiexec /i $EDRSETUPFILENAME TARGETDIR=$TARGETDIR /qb /L*V FreeEDRinstall.log"
 
 Write-Output "Installing Sysmon..."
@@ -244,10 +245,17 @@ if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue)
 
 # Enable 4688, 4689 & commandLine audit events
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1
-
 auditpol.exe /set /subcategory:"Process Creation" /success:enable /failure:enable
-
 auditpol.exe /set /subcategory:"Process Termination" /success:enable /failure:enable
+
+# add custom context menu
+New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
+$ContextCommand = "Whitelist executable file"
+$command = "cmd.exe /c start """" /min powershell.exe -nologo -noninteractive -NoProfile -WindowStyle hidden -ExecutionPolicy bypass -File C:\\Windows\\whitelist.ps1 -Filename '%1'"
+$contextKey = 'HKCR:\*\shell\WhitelistFile'
+$commandKey = "$ContextKey\Command"
+New-Item -Path $contextKey -Value $ContextCommand -Force
+New-Item -Path $commandKey -Value $command
 
 # Notify user
 Add-Type -AssemblyName System.Windows.Forms
