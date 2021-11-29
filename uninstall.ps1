@@ -29,3 +29,7 @@ Stop-Process -erroraction 'silentlycontinue' -Force -Name "upload" | Out-Null
 schtasks /Delete /TN "UAT" /F 
 schtasks /Delete /TN "UATupload" /F  
 schtasks /Delete /TN "DFPM" /F  
+
+# remove custom context menu
+New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
+Remove-item -path 'HKCR:\`*\Shell\WhitelistFile' -Force -Recurse
