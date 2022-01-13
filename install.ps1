@@ -241,6 +241,8 @@ if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue)
     # Block persistence through WMI event subscription
     Set-MpPreference -AttackSurfaceReductionRules_Ids e6db77e5-3df2-4cf1-b95a-636979351e5b -AttackSurfaceReductionRules_Actions Enabled -errorAction SilentlyContinue
 
+    # Block JavaScript or VBScript from launching downloaded executable content
+    Set-MpPreference -AttackSurfaceReductionRules_Ids d3e037e1-3eb8-44c8-a917-57927947596d -AttackSurfaceReductionRules_Actions Enabled -errorAction SilentlyContinue
 } 
 
 # Enable 4688, 4689 & commandLine audit events
