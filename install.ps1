@@ -202,7 +202,7 @@ else{ # otherwise network address events will fill up the directory because ther
 }
 
 
-# Windows 10 Attack Surface Reduction Rules
+# Windows 10 Attack Surface Reduction Rules - see https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference?view=o365-worldwide#block-win32-api-calls-from-office-macros
 if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue)
 {   
     # Block executable content from email client and webmail
