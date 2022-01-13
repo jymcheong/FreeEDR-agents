@@ -214,8 +214,8 @@ if (Get-Command "Set-MpPreference" -errorAction SilentlyContinue)
     # Block Office applications from injecting code into other processes
     Set-MpPreference -AttackSurfaceReductionRules_Ids 75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84 -AttackSurfaceReductionRules_Actions Enabled -errorAction SilentlyContinue
 
-    # Block Office applications from injecting code into other processes
-    Set-MpPreference -AttackSurfaceReductionRules_Ids 75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84 -AttackSurfaceReductionRules_Actions Enabled -errorAction SilentlyContinue
+    # Block Win32 API calls from Office macros
+    Set-MpPreference -AttackSurfaceReductionRules_Ids 92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b -AttackSurfaceReductionRules_Actions Enabled -errorAction SilentlyContinue
 
     # Block execution of potentially obfuscated scripts
     Set-MpPreference -AttackSurfaceReductionRules_Ids 5BEB7EFE-FD9A-4556-801D-275E5FFC04CC -AttackSurfaceReductionRules_Actions Enabled -errorAction SilentlyContinue
