@@ -259,6 +259,10 @@ $commandKey = "$ContextKey\Command"
 New-Item -Path $contextKey -Value $ContextCommand -Force
 New-Item -Path $commandKey -Value $command
 
+# add local groups
+New-LocalGroup -Name "AllowNet" -Description "For FreeEDR whitelisted programs" -ErrorAction:SilentlyContinue
+New-LocalGroup -Name "DenyNet" -Description "For FreeEDR blacklisted programs" -ErrorAction:SilentlyContinue
+
 # Notify user
 Add-Type -AssemblyName System.Windows.Forms
 $global:balmsg = New-Object System.Windows.Forms.NotifyIcon
