@@ -33,7 +33,7 @@ $net46InstallerURL='https://download.microsoft.com/download/C/3/A/C3A5200B-D33C-
 # System.Net.WebClient will fail to download if remote site has TLS1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$OPENEDR_SHA256_HASH='3AADCE34B2322ADA19AB8EC4F3F11398A6215E29D4F2C9DB2B2F92717E322D94'
+$OPENEDR_SHA256_HASH='FE4A2E8483B561493192B4031F3B6B979852C8824B96C873E0E34511D5762A47'
 $NET46_SHA256_HASH='B21D33135E67E3486B154B11F7961D8E1CFD7A603267FB60FEBB4A6FEAB5CF87'
 
 # clear any previously downloaded installer.zip
@@ -308,6 +308,8 @@ $balmsg.ShowBalloonTip(20000)
 shutdown /r /t 300
 
 Write-Output "FreeEDR installation completed, you may close this session!"
+
+
 
 
 
