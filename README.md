@@ -21,5 +21,5 @@ This is an archived version of NXLog-CE tested with FreeEDR client agents. For c
 - navigate to the project path (with cmd or powershell)
 - run batch file: updateInstaller.bat
 
-## Change-Log
+## Change Log
 See https://github.com/jymcheong/FreeEDR-agents/commits/main
