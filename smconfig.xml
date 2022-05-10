@@ -130,6 +130,10 @@
 	<RuleGroup name="" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
 			<!--SECTION: Microsoft-->
+			<Image condition="image">System</Image>
+			<Image condition="end with">unknown process></Image>
+			<Image condition="begin with">c:\windows\systemapps\microsoft.windows.search</Image>
+			<Image condition="image">c:\programdata\zerotier\one\zerotier-one_x64.exe</Image>
 			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
 			<DestinationHostname condition="end with">.microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
@@ -220,8 +224,73 @@
 
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 	<RuleGroup name="" groupRelation="or">
-		<ProcessAccess onmatch="include">
-			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
+		<ProcessAccess onmatch="exclude"> 
+			<GrantedAccess condition="is">0x1</GrantedAccess> 
+			<!-- PROCESS_TERMINATE --> 
+			<GrantedAccess condition="is">0x40</GrantedAccess> 
+			<!-- PROCESS_DUP_HANDLE --> 
+			<GrantedAccess condition="is">0x400</GrantedAccess> 
+			<!-- PROCESS_QUERY_INFORMATION --> 
+			<GrantedAccess condition="is">0x1000</GrantedAccess> 
+			<!-- PROCESS_QUERY_LIMITED_INFORMATION --> 
+			<GrantedAccess condition="is">0x1040</GrantedAccess> 
+			<!-- PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_DUP_HANDLE --> 
+			<GrantedAccess condition="is">0x1400</GrantedAccess> 
+			<!-- PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_QUERY_INFORMATION --> 
+			<GrantedAccess condition="is">0x1440</GrantedAccess> 
+			<!-- PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_QUERY_INFORMATION | PROCESS_DUP_HANDLE --> 
+			<GrantedAccess condition="is">0x100000</GrantedAccess> 
+			<!-- SYNCHRONIZE--> <GrantedAccess condition="is">0x100040</GrantedAccess> 
+			<!-- SYNCHRONIZE | PROCESS_DUP_HANDLE--> <GrantedAccess condition="is">0x100400</GrantedAccess> 
+			<!-- SYNCHRONIZE | PROCESS_QUERY_INFORMATION -->
+			<GrantedAccess condition="is">0x101000</GrantedAccess> 
+			<!-- SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION --> 
+			<GrantedAccess condition="is">0x101040</GrantedAccess> 
+			<GrantedAccess condition="is">0x101400</GrantedAccess> 
+			<!-- SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_QUERY_INFORMATION --> 
+			<GrantedAccess condition="is">0x101440</GrantedAccess> 
+			<GrantedAccess condition="is">0x101001</GrantedAccess> 
+			<!-- SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_TERMINATE --> 
+			<SourceImage condition="begin with">c:\Windows\System32\</SourceImage> 
+			<!-- to exclude when the source image is a system process or windows process, its more interested to check if someone accessing or writing to a system process --> 
+			<SourceImage condition="begin with">c:\Windows\sysWOW64\</SourceImage>
+			 <!-- to exclude when the source image is a system process or windows process, its more interested to check if someone accessing or writing to a system process --> 
+			<SourceImage condition="is">System</SourceImage> <!-- to exclude when the source image is a system process or windows process, its more interested to check if someone accessing or writing to a system process --> 
+			<SourceImage condition="is">C:\Windows\Sysmon.exe</SourceImage> 
+			<SourceImage condition="is">C:\Windows\Sysmon64.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\Program Files\Microsoft Visual Studio\</SourceImage> 
+			<SourceImage condition="is">C:\Windows\Explorer.EXE</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Internet Explorer\iexplore.exe</SourceImage> 
+			<SourceImage condition="is">c:\program files\windows defender\MpCmdRun.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Windows Defender Advanced Threat Protection\MsSense.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage> 
+			<SourceImage condition="is">c:\program files (x86)\google\update\googleupdate.exe</SourceImage> 
+			<SourceImage condition="is">c:\program files\google\update\googleupdate.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\Program Files (x86)\Google\Update\</SourceImage> 
+			<SourceImage condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Google\Chrome\Application\chrome.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files (x86)\Cisco\Cisco HostScan\bin\cscan.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Microsoft Office\root\integration\integrator.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\Updates\</SourceImage> 
+			<SourceImage condition="begin with">C:\ProgramData\WebEx\webex\</SourceImage> 
+			<SourceImage condition="begin with">C:\Program Files\NVIDIA Corporation\Display.NvContainer\</SourceImage> 
+			<SourceImage condition="begin with">C:\WINDOWS\SoftwareDistribution\Download\Install\</SourceImage> 
+			<SourceImage condition="end with">\appdata\local\webex\webex\applications\WebexMTA.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\LRS\VPSX Printer Driver Management\ndrvu.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\Lenovo\iMController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</SourceImage> 
+			<SourceImage condition="is">c:\program files (x86)\cisco\cisco hostscan\bin\ciscod.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\Program Files\Realtek\Audio\HDA\</SourceImage> 
+			<SourceImage condition="is">C:\Program Files (x86)\Microsoft Intune Management Extension\agentexecutor.exe</SourceImage> 
+			<TargetImage condition="begin with">C:\Windows\Microsoft.NET\</TargetImage> 
+			<TargetImage condition="begin with">C:\Program Files\Realtek\Audio\HDA\</TargetImage> 
+			<SourceImage condition="is">c:\program files (x86)\bigfix enterprise\bes client\besclient.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClientHelper.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\BigFix Enterprise\BES Client\BESClient.exe</SourceImage> 
+			<SourceImage condition="is">C:\Program Files\BigFix Enterprise\BES Client\BESClientHelper.exe</SourceImage> 
 		</ProcessAccess>
 	</RuleGroup>
 
@@ -591,6 +660,7 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<DnsQuery onmatch="exclude">
+			<Image condition="begin with">c:\windows\systemapps\microsoft.windows.search</Image>
 			<!--Network noise-->
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
