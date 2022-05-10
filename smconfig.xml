@@ -83,8 +83,8 @@
 	<RuleGroup name="" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
-			<CommandLine condition="begin with">C:\Windows\openEDR</CommandLine> <!--Windows-->
-			<ParentCommandLine condition="begin with">C:\Windows\openEDR</ParentCommandLine>
+			<CommandLine condition="begin with">C:\Windows\freeEDR</CommandLine> <!--Windows-->
+			<ParentCommandLine condition="begin with">C:\Windows\freeEDR</ParentCommandLine>
 			<ParentCommandLine condition="is">C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe</ParentCommandLine>
 			<ParentCommandLine condition="begin with">C:\Windows\System32\icacls.exe "C:\ProgramData\ZeroTier\One\networks.d</ParentCommandLine>
             	</ProcessCreate>
@@ -304,7 +304,7 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<FileCreate onmatch="exclude">
-			<TargetFilename condition="begin with">C:\Windows\openEDR\</TargetFilename> <!-- Windows: Temp files by DrvInst.exe-->
+			<TargetFilename condition="begin with">C:\Windows\freeEDR\</TargetFilename> <!-- Windows: Temp files by DrvInst.exe-->
    			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<!--SECTION: Microsoft:Office:Click2Run-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!-- Microsoft:Office Click2Run-->
