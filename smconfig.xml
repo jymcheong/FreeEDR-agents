@@ -191,6 +191,7 @@
 		<CreateRemoteThread onmatch="exclude">
 			<!--COMMENT: Exclude mostly-safe sources and log anything else.-->
 			<SourceImage condition="is">C:\Windows\system32\wbem\WmiPrvSE.exe</SourceImage>
+			<SourceImage condition="begin with">C:\windows\freeEDR\</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\wininit.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\csrss.exe</SourceImage>
@@ -258,6 +259,7 @@
 			<SourceImage condition="is">System</SourceImage> <!-- to exclude when the source image is a system process or windows process, its more interested to check if someone accessing or writing to a system process --> 
 			<SourceImage condition="is">C:\Windows\Sysmon.exe</SourceImage> 
 			<SourceImage condition="is">C:\Windows\Sysmon64.exe</SourceImage> 
+			<SourceImage condition="begin with">C:\Windows\freeEDR\</SourceImage>
 			<SourceImage condition="begin with">C:\Program Files\Microsoft Visual Studio\</SourceImage> 
 			<SourceImage condition="is">C:\Windows\Explorer.EXE</SourceImage> 
 			<SourceImage condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</SourceImage> 
