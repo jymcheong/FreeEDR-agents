@@ -262,6 +262,7 @@ New-Item -Path $commandKey -Value $command
 # add local groups
 New-LocalGroup -Name "AllowNet" -Description "For FreeEDR whitelisted programs" -ErrorAction:SilentlyContinue
 New-LocalGroup -Name "DenyNet" -Description "For FreeEDR blacklisted programs" -ErrorAction:SilentlyContinue
+New-LocalGroup -Name "AddProfileOnce" -Description "For FreeEDR whitelist management" -ErrorAction:SilentlyContinue
 
 # A sample of commonly abused system tools for non-PE base execution
 # more @ https://lolbas-project.github.io/#/download
