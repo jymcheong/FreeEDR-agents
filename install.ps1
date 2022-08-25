@@ -264,37 +264,6 @@ New-LocalGroup -Name "AllowNet" -Description "For FreeEDR whitelisted programs" 
 New-LocalGroup -Name "DenyNet" -Description "For FreeEDR blacklisted programs" -ErrorAction:SilentlyContinue
 New-LocalGroup -Name "AddProfileOnce" -Description "For FreeEDR whitelist management" -ErrorAction:SilentlyContinue
 
-# A sample of commonly abused system tools for non-PE base execution
-# more @ https://lolbas-project.github.io/#/download
-# since PE files are denied upon written, this list focus on non-PE delivery
-$denyNetList = @("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
-$denyNetList += @("C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe")
-$denyNetList += @("C:\Windows\System32\rundll32.exe")
-$denyNetList += @("C:\Windows\SysWOW64\rundll32.exe")
-$denyNetList += @("C:\Windows\System32\regsvr32.exe")
-$denyNetList += @("C:\Windows\SysWOW64\regsvr32.exe")
-$denyNetList += @("C:\Windows\System32\mshta.exe")
-$denyNetList += @("C:\Windows\SysWOW64\mshta.exe")
-$denyNetList += @("C:\Windows\System32\wscript.exe")
-$denyNetList += @("C:\Windows\SysWOW64\wscript.exe")
-$denyNetList += @("C:\Windows\System32\cscript.exe")
-$denyNetList += @("C:\Windows\SysWOW64\cscript.exe")
-
-# DenyNet is a local group for tagging files that are NOT suppose to talk on networks
-$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("DenyNet", "Read", "Allow")
-
-foreach($f in $denyNetList)
-{ 
-    if (-not(Test-Path -Path $f -PathType Leaf)) {
-       write-host "file not found"
-       continue
-    }
-    write-host "found" $f
-	$acl = get-acl -Path $f
-	$acl.SetAccessRule($AccessRule)
-	$acl | Set-Acl -Path $f
-}
-
 # Notify user
 Add-Type -AssemblyName System.Windows.Forms
 $global:balmsg = New-Object System.Windows.Forms.NotifyIcon
